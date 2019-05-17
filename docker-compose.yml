@@ -1,0 +1,17 @@
+version: '3.3'
+
+services:
+  rstudio:
+    image: rocker/tidyverse
+    environment:
+      - USER=${USER}
+      - USERID=${USERID}
+      - GROUPID=${GROUPID}
+      - PASSWORD=${PASSWORD}
+      - DATA2_PROJECTS=${DATA2_PROJECTS}
+    user: ${USERID}:${GROUPID}
+    ports:
+      - "${PORT}:8787"
+    volumes:
+      - ${MY_PROJECTS}:/home/${USER}/projects
+      - ${DATA2_PROJECTS}:${DATA2_PROJECTS}:ro
