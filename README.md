@@ -17,7 +17,7 @@ Then go to that port on la-forge using your web-browser: http://la-forge.mssm.ed
 & login with 
 
    - user: `rstudio`
-   - password: <the-password-you-picked>
+   - password: (the-password-you-picked)
 
 Take a look around to see what is going on.
 
@@ -29,7 +29,8 @@ Take a look around to see what is going on.
 
 ## Practical considerations
 
-1. Mounting disks to your container
+**Mounting disks to your container**
+
 ```sh
 docker run -d -e PASSWORD=<pick-a-password> -p 721x:8787 \
   -v $(pwd):/home/${USER}/projects \
@@ -40,6 +41,8 @@ docker run -d -e PASSWORD=<pick-a-password> -p 721x:8787 \
   --name my-container \
   rocker/tidyverse
 ```
+
+Gotchas:
 
 ## Using docker-compose
 
