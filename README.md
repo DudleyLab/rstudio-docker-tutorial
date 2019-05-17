@@ -65,10 +65,20 @@ Docker-compose is a command-line tool that makes launching dockers more streamli
 To use docker-compose:
 
 1. [Install docker-compose](https://docs.docker.com/compose/install/) for your user account.
-
-2. (after cloning this repo):
-   - edit the `.env` file to include your userid & a unique port
-   - type `docker-compose up`
+  ```sh
+  curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o ~/bin/docker-compose
+  chmod u+x ~/bin/docker-compose
+  ```
+  Test this by typing: `which docker-compose`
+2. Edit the `.env` file to include your userid & a unique port
+  ```sh
+  vim .env
+  ```
+  Test this by typing: `docker-compose config`
+3. Launch the docker(s) according to the yml settings
+   ```sh
+   docker-compose up
+   ```
 
 **An explanation:**
 
