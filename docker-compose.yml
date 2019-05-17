@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   rstudio:
-    image: rocker/tidyverse
+    build: .
     environment:
       - USER=${USER}
       - USERID=${USERID}
