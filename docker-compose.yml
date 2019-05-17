@@ -6,10 +6,8 @@ services:
     environment:
       - USER=${USER}
       - USERID=${USERID}
-      - GROUPID=${GROUPID}
+      - GROUPID=${USERID}
       - PASSWORD=${PASSWORD}
-      - DATA2_PROJECTS=${DATA2_PROJECTS}
-    user: ${USERID}:${GROUPID}
     ports:
       - "${PORT}:8787"
     volumes:
