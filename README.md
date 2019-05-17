@@ -137,11 +137,11 @@ docker-compose up            # build image if not exists & run container
 docker-compose up --build    # force-build image & run container
 ```
 
-Using docker:
+Using docker, one of the following:
 
 ```sh
 docker build .
+docker built -t [image-name] .
 ```
-_ HINT you can name your image by running `docker build -t [image-name] .` _
 
 
