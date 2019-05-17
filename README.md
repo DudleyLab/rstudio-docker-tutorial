@@ -65,16 +65,16 @@ Docker-compose is a command-line tool that makes launching dockers more streamli
 To use docker-compose:
 
 1. [Install docker-compose](https://docs.docker.com/compose/install/) for your user account.
-  ```sh
-  curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o ~/bin/docker-compose
-  chmod u+x ~/bin/docker-compose
-  ```
-  Test this by typing: `which docker-compose`
+    ```sh
+    curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o ~/bin/docker-compose
+    chmod u+x ~/bin/docker-compose
+    ```
+   **Test** this: `which docker-compose`
 2. Edit the `.env` file to include your userid & a unique port
-  ```sh
-  vim .env
-  ```
-  Test this by typing: `docker-compose config`
+    ```sh
+    vim .env
+    ```
+    **Test** this: `docker-compose config`
 3. Launch the docker(s) according to the yml settings
    ```sh
    docker-compose up
@@ -95,12 +95,53 @@ This will display & reformat the `docker-compose.yml` file according to your env
 
 ## Customize your image
 
-There are, generally, two ways to customize an image depending on your needs & save those customizations for posterity.
+I have set up an example Dockerfile building on the `rocker/tidyverse` image here for you to play with, in the [custom-dockerfile branch](https://github.com/DudleyLab/rstudio-docker-tutorial/tree/custom-dockerfile) of this repo.
 
-1. Launch a container (ie tidyverse), install packages and/or modify the container, & snapshot.
-2. Edit the Dockerfile & re-build the image with your edits. (then re-launch the container & proceed with analysis).
+Let's change to this branch now so we can test it out
 
-I have set up an example of the second scenario here for you to play with, in the Dudleylab/rstudio-docker-tutorial@custom-dockerfile branch. Type `git checkout custom-dockerfile` to change to this branch.
+```sh
+git checkout custom-dockerfile
+``` 
 
-Take a look at this [example Dockerfile](https://github.com/DudleyLab/rstudio-docker-tutorial/blob/custom-dockerfile/Dockerfile). Note that this is a Dockerfile from an actual project, to illustrate how to do common things when building on the rocker.org images.
+Review the text of the [example Dockerfile](https://github.com/DudleyLab/rstudio-docker-tutorial/blob/custom-dockerfile/Dockerfile). 
+
+This is a Dockerfile from an actual project, to illustrate how to do common things when building on the rocker.org images.
+
+There are a couple of changes between this branch & the master branch. 
+
+1. I have included a [`.dockerignore`](https://github.com/DudleyLab/rstudio-docker-tutorial/blob/7dd80c4be4888face3476397c0532660797ea8bf/.dockerignore) file. This tells docker that most files in the repo are irrelevant to the docker image, except `install.R`. 
+    - If I didn't have this file, docker would build the image correctly, but it would not cache layers from earlier builds.
+    - See [this reference](https://codefresh.io/docker-tutorial/not-ignore-dockerignore/) for more details 
+2. I have included a skeleton [`install.R`](https://github.com/DudleyLab/rstudio-docker-tutorial/blob/7dd80c4be4888face3476397c0532660797ea8bf/install.R) file.
+    - This could do anything you can code in R.
+    - I use it to download data from GEO &/or to install a local package if I'm developing one.
+    - Note also that this file is marked to not be ignored in the `.dockerignore` file. Editing the file will force the image to be rebuilt when you do `docker-compose up` or `docker build .`.
+        ```
+        !install.R
+        ```
+3. I have edited the `docker-compose.yml` file to include the following line:
+    ```
+    build: .
+    ```
+    - This tells the docker-compose to an image built from this Dockerfile rather than the `rocker/tidyverse` image.
+
+#### Actually build the image
+
+You can build the image whether you use docker-compose or not. 
+
+Using docker-compose, any of the following:
+
+```sh
+docker-compose build         # _just_ build the image
+docker-compose up            # build image if not exists & run container
+docker-compose up --build    # force-build image & run container
+```
+
+Using docker:
+
+```sh
+docker build .
+```
+_ HINT you can name your image by running `docker build -t [image-name] .` _
+
 
