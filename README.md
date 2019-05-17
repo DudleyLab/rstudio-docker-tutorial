@@ -115,10 +115,7 @@ There are a couple of changes between this branch & the master branch.
 2. I have included a skeleton [`install.R`](https://github.com/DudleyLab/rstudio-docker-tutorial/blob/7dd80c4be4888face3476397c0532660797ea8bf/install.R) file.
     - This could do anything you can code in R.
     - I use it to download data from GEO &/or to install a local package if I'm developing one.
-    - Note also that this file is marked to not be ignored in the `.dockerignore` file. Editing the file will force the image to be rebuilt when you do `docker-compose up` or `docker build .`.
-        ```
-        !install.R
-        ```
+    - Note also that this file is marked to not be ignored in the `.dockerignore` file above. Editing the file will force the image to be rebuilt when you do `docker-compose up` or `docker build .`.
 3. I have edited the `docker-compose.yml` file to include the following line:
     ```
     build: .
@@ -144,4 +141,8 @@ docker build .
 docker built -t [image-name] .
 ```
 
+Once it has been built, you can label & push it to dockerhub if you like.
 
+Note: an alternative to editing your dockerfile is to simply log into the image, run your install.R or whatever, and then snapshot the image to save it. You can then optionally push the image to dockerhub to archive it. 
+
+I don't personally use this workflow but I can imagine it working for others, particularly if your image doesn't contain any actual data.
