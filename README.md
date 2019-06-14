@@ -54,7 +54,7 @@ Gotchas:
 1. `docker ps [-a]`: list running containers (-a: list all containers including stopped containers)
 2. `docker start` & `docker stop`: start & stop a running container
 3. `docker rm`: remove (ie delete) a container
-4. `docker snapshot`: create an image from a container
+4. `docker commit`: create an image from a container
 5. `docker logs`: see logs for a (probably running) container
 6. `docker stats [image(s)..]`: see stats (io, cpu, mem%, etc) for a container
 
